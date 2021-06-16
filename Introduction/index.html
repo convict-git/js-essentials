@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Introduction to JS</title>
+      <script type="module" src="script.js" defer></script>
+      <script type="module" src="oscript.js" defer></script>
+      <script src="main.js" defer></script>
+   </head>
+   <body>
+      <main>
+         <div class='info'>
+            <p>
+               Checkout the console! </br>
+               my_variable defined in script was explicitly exported and then imported by oscript, which in turn logged its value. </br>
+               But, my_variable isn't available in the global space as the object was defined in a module. </br>
+               Unlike my_variable, my_proud_variable sits in main js file (and not a module), and is available in the global namespace.
+            </p>
+         </div>
+      </main>
+   </body>
+</html>
