@@ -13,6 +13,7 @@
 ## Memory management
 
 - Unlike low-level lang like C/C++ we don't have to worry too about memory managment in js. A garbage collector takes care of that (An optimal garbage collection is undecidable problem, so all these works on heuristics and approximations)
+- refer [MDN Memory Management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management)
 
 ## Classes
 
