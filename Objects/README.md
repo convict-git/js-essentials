@@ -21,3 +21,7 @@
 - Object templates can be created both by Classes and Object Constructor functions. The latter provides less functionalities but is supported widely.
 
 - Refer to Standard built-in object for global objects. [MDN Web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
+
+## Objects from O'Reilly
+
+- Every object has a prototype except Object.prototype. Objects inherit properties from its prototype.
