@@ -10,8 +10,8 @@ the global object which is `window` (in case of browsers) and
   function foo_strict() {
     // this makes `this` to be undefined
     "use strict";
-    /* But wait usinghttps://ca.slack-edge.com/T0CCWQ5SR-U023Q58T0HM-22cf67cd1c5b-512 
-  ("use strict";) doesn't make it go undefined, why? */
+    // ("use strict";)  // uncomment to see (TODO: DOUBT)
+    /* But wait using  with parethesis doesn't make it go undefined, why? */
     console.log("in foo_strict(), `this` is:", this); // undefined
   }
 
