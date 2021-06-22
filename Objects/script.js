@@ -127,3 +127,120 @@ console.log(game.players[0]);
   console.log(y);
   console.log(x);
 }
+
+var x = 3;
+{
+  function value() {
+    console.log(globalThis.x);
+  }
+  value();
+}
+
+{
+  /* Object.keys doens't include non-enumerable properties so we can hide them */
+  var x = { a: 3, b: 4 };
+  console.log(x);
+  Object.defineProperty(x, "c", { value: 5, enumerable: false });
+  // prints the enumerable keys of x, which doesn't include c
+  /* Object.keys() also doesn't include inherited properties and Symbols (not strings) */
+  console.log(Object.keys(x));
+
+  // includes non-enumberable as well
+  console.log(Object.getOwnPropertyNames(x));
+
+  /*
+  Objects.getOwnPropertySymbols(x) -> properties whose names are symbols
+  Reflect.ownKeys(x) -> returns all kinds of properties 
+   */
+}
+
+{
+  // Object.assign() ? for copying purpose
+  var y = { a: 3, b: 4 };
+  var x = { a: 2, c: 5 };
+
+  console.log("old X is :", x);
+  console.log("Y is :", y);
+  x = Object.assign(x, y); /* overwrite everything in y to x, 
+      y's a will be used instead of x's a
+      */
+  console.log("upd X is:", x); // {a:3, c:5, b:4} // Note a:3
+
+  for (var key in x) {
+    // Note the enumeration order
+    console.log(key);
+  }
+  /* But what if we want a's original values to persist and properties are 
+  to be overwritten by y if it already doesn't exists in x */
+  x = Object.assign({}, y, x);
+  /* First copy everything from y to empty object
+  then overwrite with x
+   */
+  console.log("upd X is:", x); // {a:2, b:4, c:5} // Note a:2
+  for (var key in x) {
+    // Note the enumeration order now (x was added later than y)
+    console.log(key);
+  }
+}
+
+{
+  /*
+  Assign properties of multiple sources to target using custom function ? 
+  For example we all properties but non-enumerable, inherited, Symbols
+  This means we can use Object.keys() style enumeration and get such keys 
+  */
+
+  var w = { f: 6 };
+  var z = { e: 5 };
+  var y = { a: -1, b: 2, __proto__: w };
+  var x = { a: 1, c: 3 };
+  Object.defineProperty(y, "d", { value: "4", enumerable: false });
+
+  function non_override_copy_properties(target, ...sources) {
+    for (let source of sources) {
+      for (let s_prop in source) {
+        if (!(s_prop in target)) {
+          // if source property not present in target make a copy
+          target[s_prop] = source[s_prop];
+        }
+      }
+    }
+  }
+  non_override_copy_properties(x, y, z);
+  console.log(x);
+  /* y.d didn't come up non-enumerable, w.f didn't come up inherited */
+}
+
+{
+  /* Serialising object 
+  We might need to send the a js object via network and we might want to 
+  restore it back as object so that it can be further used 
+
+  Serialising and Deserialising is such process which helps us achieving that.
+  JSON.stringify() creates a JSON string from the js object.
+  JSON.parse() parses a valid JSON back to a js object
+  NOTE : JSON is subset of js object and cannot represent every possibility
+  */
+  let x = { a: 1, b: 2 };
+  let y = JSON.stringify(x); // y can be sent over the network as bit stream
+  console.log(y);
+}
+
+{
+  /* toString() Method is useful specially for debugging 
+  When custom objects can be printed (or reprensented in a string form )
+  the way we want them to look
+  */
+
+  var point = {
+    x: 2,
+    y: 3,
+    z: 5,
+    toString: function () {
+      return `(x, y, z) : (${this.x}, ${this.y}, ${this.z})`;
+    },
+  };
+  console.log(String(point));
+  // OR this way
+  // console.log(point.toString());
+}

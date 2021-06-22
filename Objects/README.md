@@ -25,3 +25,22 @@
 ## Objects from O'Reilly
 
 - Every object has a prototype except Object.prototype. Objects inherit properties from its prototype.
+
+## Enumeration order of objects
+
+- All these are about using Object.keys() ...
+- To make the arrays work, since their properties are non-negative integers,
+  first all properties with non-negative integers are enumerated in the increasing order.
+- After that all properties which aren't symbols, in the order of insertion
+- Then symbols, in the order of insertion
+- When enumeration takes place on the inherited properties from the prototype (yes enumeration goes up the prototype chain), the ones which were overwritten and were enumerated already will not be shown.
+
+## Accessing objects
+
+- [Accessing objects](https://stackoverflow.com/questions/6586670/how-does-javascript-vm-implements-object-property-access-is-it-hashtable/62064106#62064106)
+
+## Understanding `this` object
+
+- The current scope is the execution context, and js runtime maintains a stack of these execution contexts. For more, refer `./this.js`
+
+- refer [this - betterprogramming.pub](https://betterprogramming.pub/understanding-the-this-keyword-in-javascript-cb76d4c7c5e8)
