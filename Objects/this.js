@@ -94,8 +94,36 @@ We can use call to provide `this` to a function
     this.foo = foo(this.x, this.y, function (__x, __y) {
       console.log("inside callback, `this` is:", this);
     });
-    this.bar = bar.call(tmp, _x, _y);
+    this.bar = bar.call(tmp, _x, _y); // tmp's context is passed
   }
   var obj = new obj_construct(2, 3);
   obj.foo;
+}
+
+/* How you can terrribly fail at using this in function constructor ! */
+{
+  let x = [1, 2, 3, 4];
+
+  x.forEach((y) => {
+    console.log(y);
+  });
+
+  /* Now suppose you want to add each element of a given list in the newly constructed
+  object using function constructor */
+  function Make(x_list) {
+    var myself = this; // use var myself
+    this.fields = [];
+    x_list.forEach(function (y) {
+      // this.fields.push(y);
+      /* The above fails! try uncommenting the above line and check */
+      /* it's because This function expression doesn't have access to
+      the `this` context of object that is going to be created */
+
+      myself.fields.push(y);
+      /* now according to closure, function expressions has access to myself, myself 
+      stores this, and using this we can access fields */
+    });
+  }
+  let y = new Make(x);
+  console.log(y.fields);
 }

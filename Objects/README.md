@@ -25,6 +25,7 @@
 ## Objects from O'Reilly
 
 - Every object has a prototype except Object.prototype. Objects inherit properties from its prototype.
+- Unless we specifically create null objects using `Object.create`, objects inherit properties from Object.prototype (and not Object.\*).
 
 ## Enumeration order of objects
 
@@ -44,3 +45,13 @@
 - The current scope is the execution context, and js runtime maintains a stack of these execution contexts. For more, refer `./this.js`
 
 - refer [this - betterprogramming.pub](https://betterprogramming.pub/understanding-the-this-keyword-in-javascript-cb76d4c7c5e8)
+
+## Using prototype and constructor properties smartly
+
+- Everything is so dynamic, it just blows my mind So we know that the constructor function is stored in the .constructor What if, after creating an object from the constructor function, we use that object to refer back to the constructor function and add certain properties or methods to it?
+  Guess what! Since we have access to the constructor from the objects and hence the properties of the constructor, we do have access over the newly added property from all of the object instances (something like a dynamic update).
+
+- refer [Prototype optimising memory usage](https://blog.yonatan.dev/prototype-optimizing-memory-usage/),
+  [Prototype operator performance saves memory](https://stackoverflow.com/questions/3493252/javascript-prototype-operator-performance-saves-memory-but-is-it-faster)
+
+-
