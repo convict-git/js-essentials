@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <div>
+      <h1>Automation</h1>
+      <h2>on prefix function</h2>
+      <p>
+         <code>
+            <pre>
+               vector &lt;int&gt; pref_func (string &s) { // O(|s|)
+                  int n = (int)s.size();
+                  vector &lt;int&gt; pi(n);
+                   pi[0] = 0;
+                   int sz = (int)s.size();
+                   for (int i = 1; i &lt; sz; ++i) {
+                      int len_j = pi[i-1];
+                      int j = len_j - 1;
+                      while (len_j &gt; 0 && s[j + 1] != s[i]) {
+                         len_j = pi[j];
+                         j = len_j - 1;
+                      }
+                      if (s[len_j] == s[i])
+                         ++len_j;
+                      pi[i] = len_j;
+                   }
+                   return pi;
+                }
+                
+                // each state represents prefix length
+                // transition : length * char -&gt; length
+                vector &lt;vector &lt;int&gt;&gt; calc_fsm(string t) { // O(|s| * 26)
+                  int n = (int)t.size();
+                  t += '#';
+                  vector &lt;vector &lt;int&gt;&gt; fsm(n + 1, vector &lt;int&gt; (26));
+                  vector &lt;int&gt; pi = pref_func(t);
+                  for (int len = 0; len &lt;= n; ++len) {
+                    for (int ch = 0; ch &lt; 26; ++ch) {
+                      if (len == 0 || t[len] == char('a' + ch))
+                        fsm[len][ch] = len + (t[len] == char('a' + ch));
+                      else
+                        fsm[len][ch] = fsm[pi[len - 1]][ch];
+                    }
+                  }
+                  return fsm;
+                }
+            </pre>
+         </code>
+      </p>
+   </div>
+   <a href="./index.html"><h1>GO BACK</h1></a>
+</body>
+</html>

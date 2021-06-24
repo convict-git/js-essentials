@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <h1>This is amazing! :D </h1>
+   <h2>This is amazing! :)</h2>
+   <h3>This is amazing! :)</h3>
+   <h4>This is amazing! :|</h4>
+   <h5>This is no more amazing! :P</h5>
+
+   <h2>Introduction to Lorem Ipsum</h2>
+   <h3>It's a brilliant random generator</h3>
+   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores perspiciatis nostrum unde non necessitatibus aliquid accusantium doloremque numquam facilis fugiat!</p>
+   <p>Aliquid similique blanditiis inventore magni illo quidem, consectetur repellat id. Velit sint dicta eum magni atque, earum adipisci voluptates veritatis?</p>
+   <p>Ipsum voluptatum, perspiciatis maiores dolor neque repudiandae quidem consectetur laborum officia, nisi atque numquam, expedita eos perferendis maxime deleniti ratione?</p>
+   <p>Ex tempora vero, ratione voluptatum recusandae cumque sequi nesciunt molestias quibusdam dolorum, doloribus ipsum sed eos, ea quo blanditiis fugit!</p>
+   <p>Hic, sint, saepe non dignissimos natus voluptatum alias dolores tempore corporis corrupti nihil ut accusamus optio iure aliquam reiciendis veritatis?</p>
+
+   <b>This</b> in introduction to <strong>HTML</strong>, and here this was in bold while HTML was kept in strong. <i>Because strong may not always mean bold and might mean something different in different context.</i> 
+   </br></br>
+   <!--This is a comment and it's here to tell you that break is 
+      a void tag and adds a newline which otherwise isn't renedered directly by 
+   the browswer-->
+   
+   <div>
+      What do you need to create web applications?
+      <ul>
+         <li>HTML</li>
+         <li>CSS</li>
+         <li>JavaScript</li>
+      </ul>
+   </div>
+
+   <!--This is block quote-->
+   <p>
+   <blockquote>
+      Hard work beats talent when talent doesn't work hard
+      <cite>-Anonymous</cite>
+   </blockquote>
+   </p>
+   
+   <!--<q> for inline quotes-->
+   <p>Lorem, ipsum dolor sit amet <q>consectetur adipisicing elit. Placeat, eius non temporibus quibusdam quis </q> quidem dolore ea fuga amet repudiandae numquam mollitia eos veritatis nulla consequatur optio deleniti! Dignissimos, autem.</p>
+
+   <!--Date and time, machine readable format is YYYY-MM-DD -->
+   <time datetime="2021-06-23">June 23, 2021</time>
+
+   <!--code block-->
+   <p>
+      Here we are trying out the inline code block 
+      <code>template &lt;typename T&gt; void add (T &a, T b); </code>
+   </p>
+
+   <!--preserving spaces and newline using <pre> we might also want to use
+      this for showing codes -->
+   <div>
+      <h2>A Fairy Song</h2> <h3>by William Shakespeare</h3>
+      <pre>
+         Over hill, over dale,
+         Thorough bush, thorough brier,
+         Over park, over pale,
+         Thorough flood, thorough fire!
+         I do wander everywhere,
+         Swifter than the moon's sphere;
+         And I serve the Fairy Queen,
+         To dew her orbs upon the green;
+         The cowslips tall her pensioners be;
+         In their gold coats spots you see;
+         Those be rubies, fairy favours;
+         In those freckles live their savours;
+         I must go seek some dewdrops here,
+         And hang a pearl in every cowslip's ear.
+      </pre>
+   </div>
+   <div>
+      <h2>Knuth Morris Pratt's algo</h2> <h3>for prefix function</h3>
+      Here it was important to use <code>&lt;pre&gt; along with &lt;code&gt; to preserver the space and indentation </code>
+      <pre><code>
+         vector &lt;int&gt; pref_func (const string &s) { // O(|s|)
+            int n = (int)s.size();
+            vector &lt;int&gt; pi(n);
+            pi[0] = 0;
+            int sz = (int)s.size();
+            for (int i = 1; i &lt; sz; ++i) {
+               int len_j = pi[i-1];
+               int j = len_j - 1;
+               while (len_j &gt; 0 && s[j + 1] != s[i]) {
+                  len_j = pi[j];
+                  j = len_j - 1;
+               }
+               if (s[len_j] == s[i])
+                  ++len_j;
+               pi[i] = len_j;
+            }
+            return pi;
+         }
+      </code></pre>
+
+      <a href="./automation.html"><em>Also see use of automation with prefix function</em></a>
+   </div>
+
+   <!--
+      subscripts and superscripts
+      not a good example below, better use mathML
+   -->
+   <div>
+      <h2>Some random problem math problem</h2>
+      <p>
+         Given <code>n</code> integers, <code>x<sub>1</sub>...x<sub>n</sub></code>, find number of elements such that
+         <code>f(x<sub>i</sub>) &lt; S</code>,</br> where
+         <code>f(x<sub>i</sub>) = x<sub>i</sub><sup>2</sup> - x<sub>i</sub> - 2 = (x<sub>i</sub> + 1)(x<sub>i</sub> - 2)</code>
+      </p>
+      <small>*If the above task looks very easy, try to solve in <code>O(1/n)</code> :) </small>
+   </div>
+
+   <h2>Some text formatting and other things</h2>
+   <!---
+      Editable content
+   -->
+   <div>
+      <blockquote contenteditable="true">
+         This is supposed to be this. But this is a free country, and you are free to change it!
+      <cite>- Mr. Freeman</cite>
+      </blockquote>
+   </div>
+
+   <p><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">ARIA Roles - Let's make the sites accessible for all!</a></p>
+
+   <!-- So we have non breaking space so that browswer doesnot breaks a line there
+   in order to wrap the content -->
+   <p>Priyanshu&nbsp;Shrivastav, Sprinklr &lt;3 </br>
+      <small>There's a non breaking space between my name</small>
+   </p>
+
+
+</body>
+</html>
