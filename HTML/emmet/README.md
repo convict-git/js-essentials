@@ -4,7 +4,7 @@
 
 - Just write the tag and it will complete it without the need of closing it or adding angular brackets
 
-- To add class and id values to some tag, say `section`, `section.class-name` will expland to `<section class="class-name"></section>, placing the cursor between the opening and closing tags. Similarly, using `section#id-value`will expand to `<section id="id-value"></section>`. It's much easier with `div`s. `.class-name` will expand to`<div class="class-name"></div>`and similarly for id values with`#`.
+- To add class and id values to some tag, say `section`, `section.class-name` will expland to `<section class="class-name"></section>`, placing the cursor between the opening and closing tags. Similarly, using `section#id-value` will expand to `<section id="id-value"></section>`. It's much easier with `div`s. `.class-name` will expand to `<div class="class-name"></div>`and similarly for id values with`#`.
 
 - Nesting can be done easily using `>`. So, `.parent-class#id-value>.child-class` will expand to
 
