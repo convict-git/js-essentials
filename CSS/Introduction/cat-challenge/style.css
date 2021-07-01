@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+.picture-group {
+  float: left;
+  width: 25%;
+  border: 2px solid black;
+  overflow: scroll;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  height: 0px;
+  padding-bottom: 35%;
+}
