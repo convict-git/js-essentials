@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  position: relative;
+  left: 25%;
+  width: 50%;
+  text-align: center;
+  border-bottom: 4px solid rgb(204, 195, 195);
+  padding: 5px;
+  margin: 5px;
+}
+
+/* specifity */
+h1:hover {
+  color: rgba(54, 44, 44, 10%);
+  text-transform: lowercase;
+  border-bottom: 4px solid grey;
+  background-color: blanchedalmond;
+  text-shadow: 1px 1px 1px black;
+}
+
+body {
+  color: rgb(211, 197, 176);
+  background-color: rgb(54, 44, 44);
+}
+
+.poem-container * + * {
+  margin-bottom: 1px;
+}
+
+.poem-container > .poem-section:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.poem-container > .poem-section pre::first-letter {
+  font-size: 2em;
+}
+
+.poem-container > .poem-section pre::selection {
+  font-size: 2em;
+  font-style: italic;
+  color: slateblue;
+  text-shadow: 0.8px 0.8px 0.8px black;
+}
+
+.poem-section {
+  float: left;
+  width: 45%;
+  overflow: scroll;
+  color: rgb(32, 49, 49);
+  margin: 5px;
+  padding: 8px;
+  background-color: rgb(240, 230, 230);
+  box-shadow: 10px 10px 30px 20px rgb(187, 165, 165) inset;
+  border-radius: 5px 40px 40px 5px;
+}
