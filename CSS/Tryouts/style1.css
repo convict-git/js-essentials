@@ -1,0 +1,36 @@
+.root {
+  background-color: slategray;
+}
+
+.height3 {
+  display: inline;
+}
+
+.height2 {
+  display: inline;
+}
+
+.height1 {
+  display: inline;
+}
+
+.root .height1 {
+  background-color: snow;
+}
+
+.root .height2 {
+  background-color: red;
+}
+
+.root :nth-child(3) {
+  background-color: blue;
+}
+
+.root > .height1 :first-child {
+  background-color: springgreen;
+  padding: 10px;
+}
+
+.root .height1 .height2 .height3 {
+  background-color: lightseagreen;
+}

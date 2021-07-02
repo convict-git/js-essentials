@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  column-count: 2;
+  column-width: 50%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin: 0px;
+  /* background-color: black; */
+  box-shadow: 10px 10px 70px 20px rgb(138, 132, 132) inset;
+  background-color: rgb(233, 220, 196);
+}
+
+div.d-fixer {
+  position: fixed;
+  margin-top: -20px;
+  padding: 0px;
+  text-align: center;
+}
+
+.d-fixer h1 {
+  display: inline;
+  margin: 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 4em;
+  text-shadow: 0px 0px 10px grey;
+}
+
+.d-fixer h1:hover {
+  color: white;
+}
+
+.box {
+  position: fixed;
+  margin-top: 30px;
+  top: 40px;
+  background-color: rgba(256, 256, 256, 0.9);
+  padding: 30px;
+  left: 25%;
+  width: 500px;
+  height: 500px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  box-shadow: 0px 0px 50px 10px slategrey;
+}
+.heading {
+  font-family: monospace;
+  text-align: center;
+}
+.sub-heading {
+  margin-top: -20px;
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+.box:hover {
+  transform: scale(1.1);
+}
+
+.background-p {
+  color: slategrey;
+  font-family: monospace;
+}
+
+.background-p::selection {
+  color: black;
+  text-shadow: 0.05em 0.05em grey;
+}
+
+p.background-p::first-letter {
+  font-size: 3em;
+}
