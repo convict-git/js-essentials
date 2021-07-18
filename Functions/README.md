@@ -66,3 +66,40 @@ outside
 
 - While iterating using `forEach` or `for-of` statement, the `item` are copies and doesn't affect the actual iterable object.
 - You cannot iterate over not iterable object (obviously!).
+
+## Module factory
+
+```js
+function WorkshopModule(x) {
+  var publicAPI = { f };
+  return publicAPI;
+
+  // ** some other things
+
+  function f(y) {
+    // use x,y and other stuffs
+    console.log(x, y);
+  }
+}
+
+var chip_workshop = WorkshopModule("Chips");
+chip_workshop.f("Reload");
+```
+
+## Classic/Revealing Module Pattern
+
+```js
+var chip_workshop = (function WorkshopModule(x) {
+  var publicAPI = { f };
+  return publicAPI;
+
+  // ** some other things
+
+  function f(y) {
+    // use x,y and other stuff
+    console.log(x, y);
+  }
+})("Chips");
+
+chip_workshop.f("Reload");
+```
