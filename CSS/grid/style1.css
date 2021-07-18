@@ -1,0 +1,52 @@
+main {
+  position: relative;
+}
+
+div.title-area {
+  position: relative;
+  margin: 10px auto;
+  height: 100px;
+  width: 700px;
+}
+
+h1#next-link,
+h1#prev-link,
+h1#title-h {
+  font-family: monospace;
+  font-size: 3em;
+  text-align: center;
+  text-shadow: 0px 0px 3px grey;
+}
+
+div.box-area {
+  position: relative;
+  margin: 0 auto;
+  background-color: peachpuff;
+  box-shadow: 0px 0px 30px 5px black;
+  outline: 2px solid black;
+  width: 70vw;
+  height: 70vh;
+
+  /* important stuff here below this */
+  display: grid;
+}
+
+div.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  background-color: cadetblue;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 5px darkcyan inset;
+  font-family: monospace;
+  font-size: 1.5em;
+  /* important stuff here below this */
+}
+
+.box:hover {
+  color: whitesmoke;
+  box-shadow: 0px 0px 15px 5px rgb(10, 203, 203) inset;
+  background-color: rgb(106, 183, 186);
+  filter: drop-shadow(0px 0px 50px);
+}

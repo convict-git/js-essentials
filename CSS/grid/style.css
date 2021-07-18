@@ -1,0 +1,80 @@
+main {
+  position: relative;
+}
+
+div.title-area {
+  position: relative;
+  margin: 10px auto;
+  height: 100px;
+  width: 700px;
+}
+
+h1#next-link,
+h1#title-h {
+  font-family: monospace;
+  font-size: 3em;
+  text-align: center;
+  text-shadow: 0px 0px 3px grey;
+}
+
+div.box-area {
+  position: relative;
+  margin: 0 auto;
+  background-color: peachpuff;
+  box-shadow: 0px 0px 30px 5px black;
+  outline: 2px solid black;
+  width: 70vw;
+  height: 70vh;
+
+  /* important stuff here below this */
+  display: grid;
+
+  /* grid-template-columns: ; */
+  /* grid-template-columns: repeat(8, 1fr); */
+  /* grid-template-columns: 1fr minmax(300px, 1fr); */
+  /* grid-template-columns: repeat(auto-fill, 300px); */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* ram tech */
+  /* grid-template-columns: [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-end]; */
+
+  /* grid-template-rows: 100px 50px auto; */
+  /* we can fix the size of auto by grid-auto-columns/rows */
+
+  /* grid-auto-flow: column; */
+  /* grid-template-rows: ; */
+  grid-auto-flow: row;
+
+  /* grid-gap: 20px; */
+  /* justify-items: stretch;
+  align-items: stretch; */
+  place-items: stretch;
+
+  /* align-content: space-around; */
+
+  /* place-content is for align-content and justify-content */
+  /* place-content: end; */
+  /* place-content: stretch; */
+}
+
+div.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  background-color: cadetblue;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 5px darkcyan inset;
+  font-family: monospace;
+  font-size: 1.5em;
+
+  /* important stuff here below this */
+}
+
+div#box-8 {
+  grid-column: 1/7;
+}
+
+.box:hover {
+  color: whitesmoke;
+  box-shadow: 0px 0px 15px 5px rgb(10, 203, 203) inset;
+  background-color: rgb(106, 183, 186);
+}
