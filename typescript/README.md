@@ -18,14 +18,14 @@ tsc src/index.ts --target ES2017 --module commonjs --watch # live changes
 
 ```json
 {
-  "include" : ["src"], // input ts files
+  "include" : ["src"], /* input ts files */
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2017",
-    "outDir": "lib", // outputs here!
-    "declaration": true, // export definitions in .d.ts file (contains type info)
-    "sourceMap": true, // maps the js to ts for debugging purpose
-    "noImplicitAny": true, // ImplicitAny allows no type safety at some places
+    "outDir": "lib", /* outputs here! */
+    "declaration": true, /* export definitions in .d.ts file (contains type info) */
+    "sourceMap": true, /* maps the js to ts for debugging purpose */
+    "noImplicitAny": true, /* ImplicitAny allows no type safety at some places */
     "strictNullChecks": true,
     "allowJs": true,
     "types": [],
