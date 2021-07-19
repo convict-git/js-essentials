@@ -100,3 +100,40 @@ narrow as possible but still able to wider or equivalent to all the definitions.
 - [utility-types](https://www.typescriptlang.org/docs/handbook/utility-types.html), Also refer `src/utility-types.ts`
 - [index signature](https://basarat.gitbook.io/typescript/type-system/index-signatures#declaring-an-index-signature)
 - [Tryout exercises](https://exercism.io/my/tracks/typescript)
+
+## Some cool inference point
+
+```js
+const x: { id: string, pid: string } = { id: "hello", pid: "world" };
+const y: { id: string } = { id: "bye_world" };
+
+const arr = [x, y];
+```
+
+What do you think the inferred type should be?
+
+- `arr: [{id: string, pid: string}, {id: string}]`
+  or
+- `arr: { id: string, pid: string } | { id: string }[]`
+  or
+- `arr : {id: string} []`
+
+Though you can give any of the type from about three manually,
+
+```js
+✅ const arr: [{ id: string, pid: string }, { id: string }] = [x, y];
+✅ const arr: { id: string, pid: string } | { id: string }[] = [x, y];
+✅ const arr: { id: string }[] = [x, y];
+```
+
+when it come to infering by itself, it is the `arr : {id: string} []`
+because it wants the array to be of homogenious type and
+will take intersection of all the types.
+
+Eg.
+
+```js
+const arx = [];
+```
+
+`arx: any[]`, which took the intersection of all which came out as `any`

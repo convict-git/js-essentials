@@ -34,10 +34,28 @@ function arrayToDict<T extends { id: string }>(ar: T[]): { [_: string]: T } {
 const x: { id: string, pid: string } = { id: "hello", pid: "world" };
 const y: { id: string } = { id: "bye_world" };
 
-// arr: [{id: string, pid: string}, {id: string}]
-// or 
-// arr : {id: string} []
 const arr = [x, y];
+/* What do you think the inferred type should be? 
+ i) arr: [{id: string, pid: string}, {id: string}]
+ or
+ ii) arr: { id: string, pid: string } | { id: string }[] 
+ or 
+ iii) arr : {id: string} [] 
+
+ Though you can give any of the type from about three manually,
+  when it come to infering it is the iii) 
+  because it wants the array to be of homogenious type and
+ will take intersection of all the types.
+
+ So, all are valid.
+
+const arr: [{ id: string, pid: string }, { id: string }] = [x, y];
+const arr: { id: string, pid: string } | { id: string }[] = [x, y];
+const arr: { id: string }[] = [x, y];
+
+const arx = []; // arx: any[], which took the intersection of all which came out any
+*/
+
 
 const z = arrayToDict(arr);
 
