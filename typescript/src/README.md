@@ -118,7 +118,7 @@ What do you think the inferred type should be?
   or
 - `arr : {id: string} []`
 
-Though you can give any of the type from about three manually,
+Though you can give any of the type from above three manually,
 
 ```js
 ✅ const arr: [{ id: string, pid: string }, { id: string }] = [x, y];
