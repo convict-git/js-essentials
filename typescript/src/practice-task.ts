@@ -39,3 +39,12 @@ const flatten = (arArg: any[], depth: number = 1): any[] => {
       }, []
    );
 }
+
+// f, g, h (a) -> f(g(h(a)))  - conventianal
+// f, g, h (a) -> h(g(f(a))) - what we want ?
+const revComp = (arg: any, ...f: ((_: any) => any)[]): any => {
+   return f.reduce((prevValue: any, curFunc: (_: any) => any) => {
+      return curFunc(prevValue);
+   }, arg
+   );
+}
