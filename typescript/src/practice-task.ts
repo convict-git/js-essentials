@@ -1,16 +1,4 @@
-const pluckFromOne =
-   <T, K extends keyof T>(obj: T, ...keys: K[]): (T[K] | undefined)[] => {
-      let result: T[K][] = [];
-      keys.forEach((key) => {
-         const value = obj[key];
-         if (typeof value !== 'undefined') {
-            result.push(value);
-         }
-      });
-      return result;
-   }
-
-const pluckFromAll =
+const pluck =
    <T, K extends keyof T, S extends T>(key: K, ...objList: S[]): S[K][] => {
       return objList.reduce(
          (prevRes: S[K][], obj: S) => {
