@@ -43,4 +43,5 @@ const test = ((inp, ...fn) => {
     .catch((e) => {
       console.log(`Error caught: ${e}`);
     });
-})(0, f1_async, f3_sync, f2_async, f4_sync, f5_sync_no_ret);
+  // })(0, f1_async, f3_sync, f2_async, f4_sync, f5_sync_no_ret);
+})(0, f1_async, f3_sync, f2_async, f4_sync);
