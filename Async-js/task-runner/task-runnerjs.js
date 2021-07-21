@@ -12,18 +12,18 @@ function f1_async(x) {
   });
 }
 
-function f2_async(x) {
-  console.log(`Inside f2(): Async, ${x}`);
+function f2_sync(x) {
+  console.log(`Inside f2(): Sync, ${x}`);
+  return x + 5;
+}
+
+function f3_async(x) {
+  console.log(`Inside f3(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(x + 2);
     }, Math.random() * 1000);
   });
-}
-
-function f3_sync(x) {
-  console.log(`Inside f3(): Sync, ${x}`);
-  return x + 5;
 }
 
 function f4_sync(x) {
@@ -44,4 +44,4 @@ const test = ((inp, ...fn) => {
       console.log(`Error caught: ${e}`);
     });
   // })(0, f1_async, f3_sync, f2_async, f4_sync, f5_sync_no_ret);
-})(0, f1_async, f3_sync, f2_async, f4_sync);
+})(0, f1_async, f2_sync, f3_async, f4_sync);
