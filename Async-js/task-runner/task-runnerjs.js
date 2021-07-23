@@ -9,8 +9,7 @@ async function taskRunner(inp, f, ...fn) {
 // Iterative version of taskRunner
 async function taskRunner(inp, ...fn) {
   return fn.reduce(async (curPromise, f) => {
-    const newInp = await curPromise;
-    return f(newInp);
+    return f(await curPromise);
   }, inp);
 }
 
@@ -123,4 +122,4 @@ const test = (testId, desc, inp, ...fn) => {
     });
 };
 
-test(...testsInp[1]); // try 0, 1, 2, 3, 4 to run different tests
+test(...testsInp[3]); // try 0, 1, 2, 3, 4 to run different tests
