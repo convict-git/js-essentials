@@ -1,10 +1,11 @@
+// TODO: Make this iterative
 async function taskRunner(inp, f, ...fn) {
   const out = await f(inp);
   return fn.length != 0 ? taskRunner(out, ...fn) : out;
 }
 
-function f1_async(x) {
-  console.log(`Inside f1(): Async, ${x}`);
+function add1AsyncFunc(x) {
+  console.log(`Inside add1AsyncFunc(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(x + 1);
@@ -12,30 +13,45 @@ function f1_async(x) {
   });
 }
 
-function f2_sync(x) {
-  console.log(`Inside f2(): Sync, ${x}`);
-  return x + 5;
+function add2SyncFunc(x) {
+  console.log(`Inside add2SyncFunc(): Sync, ${x}`);
+  return x + 2;
 }
 
-function f3_async(x) {
-  console.log(`Inside f3(): Async, ${x}`);
+function add3AsyncFunc(x) {
+  console.log(`Inside add3AsyncFunc(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(x + 2);
-    }, Math.random() * 1000);
+      resolve(x + 3);
+    }, Math.random() * 2000);
   });
 }
 
-function f4_sync(x) {
-  console.log(`Inside f4(): Sync, ${x}`);
-  return x + 5;
+function faultyAsyncFunc(x) {
+  console.log(`Inside faultyAsyncFunc(): Async, ${x}`);
+  return new Promise((resolve, reject) => {
+    reject(`I'm a bad "Async" function from inception`);
+  });
 }
 
-function f5_sync_no_ret() {
-  console.log(`Inside f5(): Sync, no return value`);
+function faultySyncFunc(x) {
+  console.log(`Inside faultySyncFunc(): Sync, ${x}`);
+  throw `I'm a bad "Sync" function from inception`;
 }
 
-const test = ((inp, ...fn) => {
+function add4SyncFunc(x) {
+  console.log(`Inside add4SyncFunc(): Sync, ${x}`);
+  return x + 4;
+}
+
+function noRetSyncFunc() {
+  console.log(`Inside noRetSyncFunc(): Sync, no return value`);
+}
+
+const test = (testId, desc, inp, ...fn) => {
+  console.log(`\n\n
+  -------------------------------------------
+  Running test ${testId}: ${desc}`);
   taskRunner(inp, ...fn)
     .then((x) => {
       console.log(`final result is ${x}`);
@@ -43,5 +59,54 @@ const test = ((inp, ...fn) => {
     .catch((e) => {
       console.log(`Error caught: ${e}`);
     });
-  // })(0, f1_async, f3_sync, f2_async, f4_sync, f5_sync_no_ret);
-})(0, f1_async, f2_sync, f3_async, f4_sync);
+};
+
+// Test 1 - All successful functions
+test(
+  1, // testId
+  "All successful functions, Syncs and Asyncs in chain", // desc
+  0,
+  add1AsyncFunc,
+  add2SyncFunc,
+  add3AsyncFunc,
+  add4SyncFunc
+);
+
+/*
+// Test 2 - All successful functions but Final function has no return value 
+test(
+  2,
+  "All successful functions but Final function has no return value",
+  0,
+  add1AsyncFunc,
+  add2SyncFunc,
+  add3AsyncFunc,
+  add4SyncFunc,
+  noRetSyncFunc
+);
+
+// Test 3 - Faulty "Sync" function throwing error in between the pipeline
+test(
+  3, // testId
+  `Faulty 'Sync' function throwing error in between the pipeline`, // desc
+  0,
+  add1AsyncFunc,
+  add2SyncFunc,
+  faultySyncFunc,
+  add3AsyncFunc,
+  add4SyncFunc
+);
+
+// Test 4 - Faulty "Async" function returning a reject promise in between the pipeline
+test(
+  4, // testId
+  `Faulty "Async" function returning a reject promise in between the pipeline`, // desc
+  0,
+  add1AsyncFunc,
+  add2SyncFunc,
+  faultyAsyncFunc,
+  add3AsyncFunc,
+  add4SyncFunc
+);
+
+*/
