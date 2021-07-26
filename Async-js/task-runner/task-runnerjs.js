@@ -14,8 +14,8 @@ async function taskRunner(inp, ...fn) {
 }
 
 // ----------------------- Test Suite -----------------------
-function add1AsyncFunc(x) {
-  console.log(`Inside add1AsyncFunc(): Async, ${x}`);
+function add1Async(x) {
+  console.log(`Inside add1Async(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(x + 1);
@@ -23,13 +23,13 @@ function add1AsyncFunc(x) {
   });
 }
 
-function add2SyncFunc(x) {
-  console.log(`Inside add2SyncFunc(): Sync, ${x}`);
+function add2Sync(x) {
+  console.log(`Inside add2Sync(): Sync, ${x}`);
   return x + 2;
 }
 
-function add3AsyncFunc(x) {
-  console.log(`Inside add3AsyncFunc(): Async, ${x}`);
+function add3Async(x) {
+  console.log(`Inside add3Async(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(x + 3);
@@ -37,25 +37,25 @@ function add3AsyncFunc(x) {
   });
 }
 
-function faultyAsyncFunc(x) {
-  console.log(`Inside faultyAsyncFunc(): Async, ${x}`);
+function faultyAsync(x) {
+  console.log(`Inside faultyAsync(): Async, ${x}`);
   return new Promise((resolve, reject) => {
     reject(`I'm a bad 'Async' function from inception`);
   });
 }
 
-function faultySyncFunc(x) {
-  console.log(`Inside faultySyncFunc(): Sync, ${x}`);
+function faultySync(x) {
+  console.log(`Inside faultySync(): Sync, ${x}`);
   throw `I'm a bad 'Sync' function from inception`;
 }
 
-function add4SyncFunc(x) {
-  console.log(`Inside add4SyncFunc(): Sync, ${x}`);
+function add4Sync(x) {
+  console.log(`Inside add4Sync(): Sync, ${x}`);
   return x + 4;
 }
 
-function noRetSyncFunc() {
-  console.log(`Inside noRetSyncFunc(): Sync, NO RETURN VALUE`);
+function noRetSync() {
+  console.log(`Inside noRetSync(): Sync, NO RETURN VALUE`);
 }
 
 const testsInp = [
@@ -69,43 +69,43 @@ const testsInp = [
     1, // testId
     `All successful functions, Syncs and Asyncs in chain`, // desc
     0,
-    add1AsyncFunc,
-    add2SyncFunc,
-    add3AsyncFunc,
-    add4SyncFunc,
+    add1Async,
+    add2Sync,
+    add3Async,
+    add4Sync,
   ],
   [
     // Test 2 - All successful functions but Final function has no return value
     2,
     `All successful functions but Final function has NO RETURN VALUE`,
     0,
-    add1AsyncFunc,
-    add2SyncFunc,
-    add3AsyncFunc,
-    add4SyncFunc,
-    noRetSyncFunc,
+    add1Async,
+    add2Sync,
+    add3Async,
+    add4Sync,
+    noRetSync,
   ],
   [
     // Test 3 - Faulty `Sync` function throwing error in between the pipeline
     3, // testId
     `Faulty 'Sync' function throwing error in between the pipeline`, // desc
     0,
-    add1AsyncFunc,
-    add2SyncFunc,
-    faultySyncFunc,
-    add3AsyncFunc,
-    add4SyncFunc,
+    add1Async,
+    add2Sync,
+    faultySync,
+    add3Async,
+    add4Sync,
   ],
   [
     // Test 4 - Faulty `Async` function returning a reject promise in between the pipeline
     4, // testId
     `Faulty 'Async' function returning a reject promise in between the pipeline`, // desc
     0,
-    add1AsyncFunc,
-    add2SyncFunc,
-    faultyAsyncFunc,
-    add3AsyncFunc,
-    add4SyncFunc,
+    add1Async,
+    add2Sync,
+    faultyAsync,
+    add3Async,
+    add4Sync,
   ],
 ];
 
