@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+      /* Here goes our styles */
+      * {
+         box-sizing: content-box;
+         justify-content: center;
+         align-items: center;
+         padding: 2px;
+      }
+      .box {
+         height: 200px;
+         width: 300px;
+         display: flex;
+         padding: 10px;
+         flex-direction: column;
+         gap: 2px;
+         /* justify-content: center; */
+         /* align-items: center; */
+         box-shadow: 1px 1px 20px 1px white inset;
+         border: 1px solid black;
+         overflow: scroll;
+         margin: 20px;
+      }
+   </style>
+   <title>Learning React</title>
+</head>
+<body>
+   <div id="root"></div>
+   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js" ></script>
+   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js" ></script>
+   <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+   <script src="https://unpkg.com/@babel/standalone@7.13.14/babel.js" ></script>
+   <script type="text/babel" >
+      const rootElement = document.getElementById("root");
+
+      function Box ({custClassName, custSize, custStyles, ...restProps}) {
+         let custClassStr = ` ${custClassName ? custClassName: ''}`.concat(custSize ? ` box-${custSize}` : '');
+         return (
+            <div 
+            className={"box".concat(custClassStr)}
+            style={{backgroundColor:`pink`, ...custStyles}}
+            {...restProps}
+            >
+            </div>
+         );
+      };
+
+      function App () {
+         { /* `setName` is the updater function for `name` and it triggers the rerender */}
+         const [name, setName] =
+            // React.useState(window.localStorage.getItem('name') || '');
+            /* Using an arrow function make the useState call for initial value as lazy */
+            React.useState(
+               () => { return window.localStorage.getItem('name') || 'Edit me!'; }
+            );
+         
+         const [butLabel , setButLabel] = React.useState( 
+               () => { return parseInt(window.localStorage.getItem('butValue')) || 0 }
+            );
+
+            /* Use effect is called everytime our component rerenderes,
+            which also means that even if we don't change `name`, we still be running 
+            the inside callback 
+            To resolve that, we use dependency array
+            (sync state of the world with our state of the application)
+            */
+         React.useEffect( /* For name */
+            () => { window.localStorage.setItem('name', name); },
+            [name] /* Dependency array */
+         );
+
+         React.useEffect( /* For button */
+            () => { window.localStorage.setItem('butValue', butLabel); },
+            [butLabel]
+         )
+
+         return (
+            <Box>
+               <div style={{display: "flex", gap: '10px' }}> 
+                  This uses <code>useState</code>
+                  <button
+                     style={{ width: '25px', height: '25px' }}
+                     onClick={() => setButLabel(butLabel + 1) }
+                  >
+                     {butLabel}
+                  </button>
+               </div>
+               <div style={{ display: "flex", gap: '10px' }}>
+                  <label htmlFor="name">Enter name: </label>
+                  <input id="name" type="text"
+                     onChange={event => { setName(event.target.value); }}
+                     value={name}
+                  />
+               </div>
+               <Box
+                  custClassName="display-box"
+                  custStyles={{ fontSize: '2em', backgroundColor: 'orange' }}
+               >
+                  {name}
+               </Box>
+            </Box>
+         );
+      }
+      ReactDOM.render(<App/>, rootElement);
+
+      /* Create reusable custom hooks */
+      function useLocalStorage(key, defaultValue) {
+         const [state, setState] = React.useState(
+            () => { window.localStorage.getItem(key) || defaultValue }
+         );
+         React.useEffect( /* some kind of async function that is triggered at rerender */
+            () => { window.localStorage.setItem(key, state) },
+            [key, state] /* Dependency arary, NOTE that both key and state are req */
+         )
+         return state, setState;
+      }
+
+      /* Not written the useRef code, as it was using the Vanilla Tilt, see README.md */
+
+</script>
+</body>
+</html>
