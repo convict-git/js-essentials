@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+      * {
+         box-sizing: content-box;
+      }
+      .box {
+         height: 100px;
+         width: 100px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         box-shadow: 1px 1px 20px 1px white inset;
+         border: 1px solid black;
+      }
+      .phidden-box {
+         font-weight: 200;
+         border: 2px dotted black;
+      }
+      .box-large {
+         height: 200px;
+         width: 200px;
+      }
+
+   </style>
+   <title>Learning React</title>
+</head>
+<body>
+   <div id="root"></div>
+   <script src="https://unpkg.com/react@16.12.0/umd/react.development.js" ></script>
+   <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js" ></script>
+   <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+   <script src="https://unpkg.com/@babel/standalone@7.13.14/babel.js" ></script>
+   <script type="text/babel" >
+      const rootElement = document.getElementById("root");
+
+      const elemContainer = React.createElement('div', {
+         children: ["Hello World"],
+         className: "container",
+      });
+
+      /* OR (equivalent to, and even the below compiles to above one) */
+      // const elemContainer = <div className="container">Hello World</div>;
+
+      // ReactDOM.render(elemContainer, rootElement);
+      /* ----------------------------------------------------*/
+
+      const elemNonContainer = <div className="non-container">Bye World </div>;
+
+      const GetElementMsged = props => <div className="msg-div"> {props.children} </div>;
+      console.log(<GetElementMsged>Hello there!</GetElementMsged>);
+
+      /* Creating fragment to allow multiple childs be appended  */
+      const elementFrag = 
+         <React.Fragment>
+            {elemContainer}
+            {elemNonContainer}
+
+            {/* Some of the ways GetElementMsged can be used */}
+            {GetElementMsged({ children: `I'm here`})} 
+            <GetElementMsged children="I came using the children attribute"></GetElementMsged>
+            <GetElementMsged>I'm here directly as children</GetElementMsged>
+         </React.Fragment>
+
+      // ReactDOM.render(elementFrag, rootElement);
+      /* ----------------------------------------------------*/
+
+      /* PropTypes are helpful when you want to make sure the contructor 
+      is called with valid arguments */
+      function Point ({x, y, z}) {
+         return (
+            <div className="point">
+            ({x}, {y}{typeof z !== 'undefined' ? `, ${z}`: ``})
+            </div>
+            );
+      }
+
+      /* This can increase overhead, and we can disable this in production */
+      Point.propTypes = {
+         x: PropTypes.number.isRequired,
+         y: PropTypes.number.isRequired,
+         z: PropTypes.number
+      }
+
+      let pointElement = <Point x={1} y={2}></Point> // z is optional 
+      // let pointElement = <Point x={1} y={2} z={3}></Point>
+      // let pointElement = <Point x={false} y={2}></Point> // Throws error type check
+
+      // ReactDOM.render(pointElement, rootElement);
+      /* OR */
+      // ReactDOM.render(Point({x:4, y:5, z:6}), rootElement);
+      /* OR */
+      // ReactDOM.render(Point({x:4, y:5}), rootElement);
+
+      /* ----------------------------------------------------*/
+      /* Rerender only the updated parts - Tree diff happening */
+
+      // const dateTimeNow = new Date().toLocaleString();
+      // const dateTimeElement = <div className="date-time"> { dateTimeNow } </div>
+      // ReactDOM.render(dateTimeElement, rootElement); /* This just renders it once */
+
+      /* Include updates */
+      const timer = (msg) => { 
+         setInterval(() => {
+            const dateTimeNow = new Date().toLocaleString();
+            const dateTimeElement =
+               (
+                  <div className="date-time">
+                     <GetElementMsged>{dateTimeNow}</GetElementMsged>
+                     {dateTimeNow}
+
+                     { /* This doesn't get rerender again */}
+                     <div className="no-change"> {msg}</div>
+                  </div>
+               );
+            ReactDOM.render(dateTimeElement, rootElement); /* This just renders it once */
+
+            /* Note that if you work with innerHTML instead, it will have to render 
+            the whole thing again. Slow! */
+         }, 1000);
+      };
+      // timer(`Hey, checkout in "Elements", that I don't change`) /* Uncomment this */
+      /* ----------------------------------------------------*/
+      const Box = ({custClassName, custSize, custStyles, ...restProps}) => {
+         let custClassStr = ` ${custClassName ? custClassName: ''}`.concat(custSize ? ` box-${custSize}` : '');
+         return (
+            <div 
+            className={"box".concat(custClassStr)}
+            style={{backgroundColor:`pink`, ...custStyles}}
+            {...restProps}
+            >
+            </div>
+         );
+      };
+      
+      const elemBoxContainer = 
+      (
+         <React.Fragment>
+            <Box 
+            custClassName="first-prod" custSize="small" 
+            custStyles={{fontStyle:'italic', backgroundColor: 'aquamarine'}} 
+            >
+            Hey there!
+            </Box>
+            <Box>Hi again!</Box> { /* Just as it is, without any additional args */ }
+            <Box 
+            custClassName="phidden-box"
+            custSize="large"
+            custStyles={{backgroundColor: 'cyan'}}
+            > 
+            I may be hidden sometimes
+            </Box>
+
+         </React.Fragment>
+      );
+      // ReactDOM.render(elemBoxContainer, rootElement);
+
+      const curState = 
+      {
+         totalClicks: 0,
+         totalHovers: 0,
+         setState: (objNew) => {
+            if ( objNew.totalClicks ) {
+               curState.totalClicks = objNew.totalClicks;
+            }
+            if ( objNew.totalHovers ) {
+               curState.totalHovers = objNew.totalHovers;
+            }
+            renderAll();
+         }
+      };
+
+      function handleClick() {
+         curState.setState({
+            totalClicks: curState.totalClicks + 1,
+         })
+      }
+
+      function handleHover() {
+         curState.setState({
+            totalHovers: curState.totalHovers + 1,
+         })
+      }
+
+      function InputEvents() {
+         return (
+            <div>
+               <div> Total Clicks: {curState.totalClicks} </div>
+               <div> Total Hovers: {curState.totalHovers}</div>
+               <button
+                  style={{width:'20px', height:'20px'}}
+                  /* ! This is a bad practice of using inline 
+                  functions in event listeners 
+                  refer: https://stackoverflow.com/questions/50350202/when-to-use-inline-function-on-button-onclick-event-javascript-react-js
+                  onClick={() => {
+                     curState.totalClicks += 1;
+                     renderAll();
+                  }}
+                  onMouseEnter={() => {
+                     curState.totalHover += 1;
+                     renderAll();
+                  }}
+                  */
+                 onClick={ handleClick }
+                 onMouseEnter={ handleHover }
+               />
+            </div>
+         );
+      }
+
+      function renderAll() {
+         ReactDOM.render(<InputEvents/>, rootElement);
+      }
+      renderAll();
+
+</script>
+</body>
+</html>
