@@ -22,4 +22,6 @@ const yy = 1;
 const y = [1, 2, 3, [1, 2, 3, 1, 2], [1, 2, [1, 2]]];
 const x = [1, 2, 3, [1, 2, 3], [1, [1, 2, 3]]];
 const z = [3];
+const ar = [1, 2, [1, 2, 3], [[1, 2, 3], 1], []];
+let imAr = [1, 2, 3];
 //# sourceMappingURL=interfaces_aliases.js.map

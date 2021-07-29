@@ -1,3 +1,4 @@
+/*
 interface A {
    x: number;
    y: string;
@@ -21,7 +22,8 @@ a('x');
 class Al {
    constructor(public x: number, public y?: number) { }
 }
+* /
 
 let myx = Al; /* storing Al in myx, myx is now the constructor of Al */
-let xxz = new myx(2);
-xxz.x;
+// let xxz = new myx(2);
+// xxz.x;

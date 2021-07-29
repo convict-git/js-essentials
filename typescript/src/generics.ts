@@ -53,9 +53,8 @@ const arr: [{ id: string, pid: string }, { id: string }] = [x, y];
 const arr: { id: string, pid: string } | { id: string }[] = [x, y];
 const arr: { id: string }[] = [x, y];
 
-const arx = []; // arx: any[], which took the intersection of all which came out any
 */
-
+const arx = []; // arx: any[], which took the intersection of all which came out any
 
 const z = arrayToDict(arr);
 
