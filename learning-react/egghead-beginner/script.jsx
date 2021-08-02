@@ -65,6 +65,9 @@ function App() {
         <input id="userName" />
         <button> fetch </button>
       </form>
+      <code style={{ fontSize: "0.8em" }}>
+        Eg. (tourist / Benq / ksun48 / Radewoosh){" "}
+      </code>
       <hr style={{ width: "300px" }} />
       <div>
         <CodeforceInfo userName={userName} />
