@@ -20,7 +20,7 @@ function PrettyOutput({ rank, rating, img }) {
       <pre>
         {rank} {rating}
       </pre>
-      <img src={img}></img>
+      <img className="profile-img" src={img} />
     </div>
   );
 }
@@ -54,7 +54,7 @@ function CodeforceInfo({ userName }) {
             value: {
               rating: data[0].maxRating,
               rank: data[0].maxRank,
-              titlePhoto: data[0].profilePicLink,
+              titlePhoto: data[0].titlePhoto,
             },
           };
           setOutput(res);
