@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+      /* Here goes our styles */
+      * {
+         box-sizing: content-box;
+         padding: 2px;
+         margin: 2px;
+      }
+      .box {
+         height: 200px;
+         width: 300px;
+         display: flex;
+         padding: 10px;
+         flex-direction: column;
+         gap: 2px;
+         /* justify-content: center; */
+         /* align-items: center; */
+         box-shadow: 1px 1px 20px 1px white inset;
+         border: 1px solid black;
+         overflow: hidden;
+         margin: 20px;
+      }
+   </style>
+   <title>Learning React</title>
+</head>
+<body>
+   <div id="root"></div>
+   <script crossorigin src="https://unpkg.com/react@16.12.0/umd/react.development.js" ></script>
+   <script crossorigin src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js" ></script>
+   <script crossorigin src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+   <script crossorigin src="https://unpkg.com/@babel/standalone@7.13.14/babel.js" ></script>
+   <script crossorigin src="https://unpkg.com/redux@3.7.1/dist/redux.min.js"></script>
+   <script type="text/babel" src="./script.jsx"></script>
+</script>
+</body>
+</html>
