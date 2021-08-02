@@ -16,6 +16,30 @@ function Box({ custClassName, custSize, custStyles, ...restProps }) {
 function CodeforceInfo({ userName }) {
   const [output, setOutput] = React.useState("Please enter a codeforce handle");
   const timeoutRef = React.useRef(null); /* to refer the setTimeOut later */
+  const retryTimeoutRef = React.useRef(null);
+
+  function fetchData() {
+    setOutput("...");
+    clearTimeout(timeoutRef.current); /* Clear the last timeout */
+    clearTimeout(retryTimeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setOutput("Fetching ...");
+      console.log("Sent a fetch request");
+      fetchUser(userName) /* Async */
+        .then((data) => {
+          const maxRating = data[0].maxRating;
+          const maxRank = data[0].maxRank;
+          const res = `Rating: ${maxRating}\n Rank: ${maxRank}`;
+          setOutput(res);
+        })
+        .catch(() => {
+          clearTimeout(retryTimeoutRef.current);
+          retryTimeoutRef.current = setTimeout(fetchData, 5000); /* Retrying */
+          setOutput("Error fetching");
+        });
+    }, 500);
+  }
 
   /* Async fetch from the API  to get the json for user
          needs to be done in useEffect(). Any side effect that's needed goes in
@@ -23,22 +47,7 @@ function CodeforceInfo({ userName }) {
   React.useEffect(
     () => {
       if (userName) {
-        setOutput("...");
-        clearTimeout(timeoutRef.current); /* Clear the last timeout */
-
-        timeoutRef.current = setTimeout(() => {
-          console.log("Fetching");
-          fetchUser(userName) /* Async */
-            .then((data) => {
-              const maxRating = data[0].maxRating;
-              const maxRank = data[0].maxRank;
-              const res = `Rating: ${maxRating}\n Rank: ${maxRank}`;
-              setOutput(res);
-            })
-            .catch(() => {
-              setOutput("Error fetching");
-            });
-        }, 500);
+        fetchData();
       } else {
         clearTimeout(timeoutRef.current);
         setOutput("Please enter a codeforce handle");
