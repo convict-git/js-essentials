@@ -13,30 +13,57 @@ function Box({ custClassName, custSize, custStyles, ...restProps }) {
   );
 }
 
+function PrettyOutput({ rank, rating, img }) {
+  console.log(rank, rating, img);
+  return (
+    <div>
+      <pre>
+        {rank} {rating}
+      </pre>
+      <img src={img}></img>
+    </div>
+  );
+}
+
 function CodeforceInfo({ userName }) {
-  const [output, setOutput] = React.useState("Please enter a codeforce handle");
+  const [output, setOutput] = React.useState({
+    msg: "Please enter a codeforce handle",
+    ok: false,
+  });
   const timeoutRef = React.useRef(null); /* to refer the setTimeOut later */
   const retryTimeoutRef = React.useRef(null);
+  let isRetrying = false;
 
-  function fetchData() {
-    setOutput("...");
+  function clearAllTimeOuts() {
     clearTimeout(timeoutRef.current); /* Clear the last timeout */
     clearTimeout(retryTimeoutRef.current);
+  }
+
+  function fetchData() {
+    setOutput({ msg: isRetrying ? "Retrying ..." : "...", ok: false });
 
     timeoutRef.current = setTimeout(() => {
-      setOutput("Fetching ...");
-      console.log("Sent a fetch request");
+      setOutput({ msg: "Fetching ...", ok: false });
+
       fetchUser(userName) /* Async */
         .then((data) => {
-          const maxRating = data[0].maxRating;
-          const maxRank = data[0].maxRank;
-          const res = `Rating: ${maxRating}\n Rank: ${maxRank}`;
+          isRetrying = false;
+          const res = {
+            msg: "Fetch Success!",
+            ok: true,
+            value: {
+              rating: data[0].maxRating,
+              rank: data[0].maxRank,
+              titlePhoto: data[0].profilePicLink,
+            },
+          };
           setOutput(res);
         })
         .catch(() => {
-          clearTimeout(retryTimeoutRef.current);
+          setOutput({ msg: "Error fetching", ok: false });
+          clearAllTimeOuts();
           retryTimeoutRef.current = setTimeout(fetchData, 5000); /* Retrying */
-          setOutput("Error fetching");
+          isRetrying = true;
         });
     }, 500);
   }
@@ -46,18 +73,16 @@ function CodeforceInfo({ userName }) {
          useEffect() */
   React.useEffect(
     () => {
+      clearAllTimeOuts();
       if (userName) {
         fetchData();
+        return () => {
+          clearAllTimeOuts(); /* For clean up */
+        };
       } else {
-        clearTimeout(timeoutRef.current);
-        setOutput("Please enter a codeforce handle");
-        return;
+        setOutput({ msg: "Please enter a codeforce handle", ok: false });
+        return; /* No clean ups required */
       }
-
-      return () => {
-        /* For clean up */
-        clearTimeout(timeoutRef.current);
-      };
     },
     [userName]
     /* ! NOTE: One major issue here is 
@@ -68,7 +93,22 @@ function CodeforceInfo({ userName }) {
             */
   );
 
-  return <pre> {output} </pre>;
+  return (
+    <div>
+      <pre id="output"> {output.msg} </pre>
+      <div>
+        {output.ok ? (
+          <PrettyOutput
+            rank={output.value.rank}
+            rating={output.value.rating}
+            img={output.value.titlePhoto}
+          />
+        ) : (
+          ""
+        )}
+      </div>
+    </div>
+  );
 }
 
 function App() {
@@ -86,10 +126,9 @@ function App() {
 
   return (
     <Box>
-      <form onSubmit={handleSubmit}>
+      <form className="input-form" onSubmit={handleSubmit}>
         <label htmlFor="userName">Enter codeforce handle:</label>
         <input id="userName" onChange={handleChange} autoComplete="off" />
-        <button> fetch </button>
       </form>
       <code style={{ fontSize: "0.8em" }}>
         Eg. (tourist / vovuh / tymefighter / mr.convict){" "}
