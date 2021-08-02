@@ -71,27 +71,18 @@ function CodeforceInfo({ userName }) {
   /* Async fetch from the API  to get the json for user
          needs to be done in useEffect(). Any side effect that's needed goes in
          useEffect() */
-  React.useEffect(
-    () => {
-      clearAllTimeOuts();
-      if (userName) {
-        fetchData();
-        return () => {
-          clearAllTimeOuts(); /* For clean up */
-        };
-      } else {
-        setOutput({ msg: "Please enter a codeforce handle", ok: false });
-        return; /* No clean ups required */
-      }
-    },
-    [userName]
-    /* ! NOTE: One major issue here is 
-            the dependency is only on userName, and if let's say we gave input 'xyz'
-            and tried fetch, and let's say we get an fetch error, after that unless we change 
-            the input (userName), the fetch is not going to work. Hence you cannot re-fetch things.
-            This can be handled by adding a stateState which needs to be changed 
-            */
-  );
+  React.useEffect(() => {
+    clearAllTimeOuts();
+    if (userName) {
+      fetchData();
+      return () => {
+        clearAllTimeOuts(); /* For clean up */
+      };
+    } else {
+      setOutput({ msg: "Please enter a codeforce handle", ok: false });
+      return; /* No clean ups required */
+    }
+  }, [userName]);
 
   return (
     <div>
